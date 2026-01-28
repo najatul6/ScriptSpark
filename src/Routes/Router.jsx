@@ -26,27 +26,51 @@ const Router = createBrowserRouter([
       },
       {
         path: "link-to-script",
-        element: <LinkToScript />,
+        element: (
+          <PrivateRoute>
+            <LinkToScript />
+          </PrivateRoute>
+        ),
       },
       {
         path: "script-to-comment",
-        element: <ScriptToComment />,
+        element: (
+          <PrivateRoute>
+            <ScriptToComment />
+          </PrivateRoute>
+        ),
       },
       {
         path: "image-to-comment",
-        element: <ImageToComment />,
+        element: (
+          <PrivateRoute>
+            <ImageToComment />
+          </PrivateRoute>
+        ),
       },
       {
         path: "client-reply",
-        element: <ClientReply />,
+        element: (
+          <PrivateRoute>
+            <ClientReply />
+          </PrivateRoute>
+        ),
       },
       {
         path: "voice-to-script",
-        element: <VoiceToScript />,
+        element: (
+          <PrivateRoute>
+            <VoiceToScript />
+          </PrivateRoute>
+        ),
       },
       {
         path: "proposal-generator",
-        element: <ProposalGenerator />,
+        element: (
+          <PrivateRoute>
+            <ProposalGenerator />
+          </PrivateRoute>
+        ),
       },
       {
         path: "signin",
