@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Send, Sparkles, Copy, RefreshCw } from 'lucide-react';
-// ১. নিচের ইমপোর্টটি অবশ্যই লাগবে
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const Home = () => {
@@ -8,7 +7,6 @@ const Home = () => {
   const [comment, setComment] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // ২. API Key লোড করা (আপনার .env ফাইলে VITE_GEMINI_API_KEY থাকতে হবে)
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
   const genAI = new GoogleGenerativeAI(apiKey);
 
@@ -17,7 +15,6 @@ const Home = () => {
     
     setLoading(true);
     try {
-      // ৩. Gemini Model কনফিগারেশন
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
       
       const prompt = `
