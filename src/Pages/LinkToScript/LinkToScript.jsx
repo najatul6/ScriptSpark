@@ -132,17 +132,19 @@ const LinkToScript = () => {
               value={videoLink}
               onChange={(e) => setVideoLink(e.target.value)}
             />
-            <button
-              onClick={handleExtractScript}
-              disabled={isExtracting}
-              className="bg-blue-600 hover:bg-blue-500 px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-50 transition-all active:scale-95"
-            >
-              {isExtracting ? (
-                <RefreshCw className="animate-spin" size={18} />
-              ) : (
-                "Get Script"
-              )}
-            </button>
+            {dbUser?.role === "SuperAdmin" && (
+              <button
+                onClick={handleExtractScript}
+                disabled={isExtracting}
+                className="bg-blue-600 hover:bg-blue-500 px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-50 transition-all active:scale-95"
+              >
+                {isExtracting ? (
+                  <RefreshCw className="animate-spin" size={18} />
+                ) : (
+                  "Get Script"
+                )}
+              </button>
+            )}
           </div>
         </div>
 
