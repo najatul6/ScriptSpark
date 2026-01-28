@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Send, FileText, Copy, RefreshCw, Briefcase, Sparkles } from 'lucide-react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { toast } from 'react-toastify';
+import useUser from '@/hooks/useUser';
 
 const ProposalGenerator = () => {
   const [jobDesc, setJobDesc] = useState('');
   const [proposal, setProposal] = useState('');
   const [loading, setLoading] = useState(false);
   const [profession, setProfession] = useState('Video Editor');
+  const [dbUser]=useUser()
 
   const professions = ['Video Editor', 'Web Developer', 'SEO Specialist', 'Graphic Designer', 'Content Writer'];
   const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
@@ -61,7 +63,8 @@ const ProposalGenerator = () => {
           value={jobDesc}
           onChange={(e) => setJobDesc(e.target.value)}
         />
-        
+        {
+          dbUser?.role === "SuperAdmin" && 
         <button
           onClick={handleGenerate}
           disabled={loading}
@@ -70,6 +73,8 @@ const ProposalGenerator = () => {
           {loading ? <RefreshCw className="animate-spin" /> : <Send size={20} />}
           Generate Winning Proposal
         </button>
+        }
+        
 
         {proposal && (
           <div className="mt-8 p-6 bg-slate-900/80 border border-orange-500/30 rounded-2xl relative">
