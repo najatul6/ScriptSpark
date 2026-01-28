@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
-import { Send, Sparkles, Copy, RefreshCw, Briefcase } from 'lucide-react';
+import React, { useState } from "react";
+import { Send, Sparkles, Copy, RefreshCw, Briefcase } from "lucide-react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import useUser from "@/hooks/useUser";
 
 const ScriptToComment = () => {
-  const [script, setScript] = useState('');
-  const [comment, setComment] = useState('');
+  const [script, setScript] = useState("");
+  const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
-  const [profession, setProfession] = useState('Web Developer'); 
-
+  const [profession, setProfession] = useState("Web Developer");
+  const [dbUser] = useUser();
   const professions = [
-    'Video Editor', 
-    'Web Developer', 
-    'SEO Specialist', 
-    'Graphic Designer', 
-    'Digital Marketer'
+    "Video Editor",
+    "Web Developer",
+    "SEO Specialist",
+    "Graphic Designer",
+    "Digital Marketer",
   ];
 
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
@@ -22,11 +23,11 @@ const ScriptToComment = () => {
 
   const handleGenerate = async () => {
     if (!script) return toast.error("Please paste a script first!");
-    
+
     setLoading(true);
     try {
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-      
+
       const prompt = `
         Context: You are a professional ${profession} helper tool named ScriptSpark. 
         Input Script: "${script}"
@@ -58,36 +59,42 @@ const ScriptToComment = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white p-6 flex flex-col items-center">
-      
       {/* Header */}
       <header className="mb-10 text-center animate__animated animate__fadeInDown">
         <h1 className="text-5xl font-extrabold flex items-center justify-center gap-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
           <Sparkles className="text-blue-400 w-10 h-10" /> ScriptSpark
         </h1>
-        <p className="text-slate-400 mt-2 text-lg">Generate expert comments as a <span className="text-blue-400">{profession}</span></p>
+        <p className="text-slate-400 mt-2 text-lg">
+          Generate expert comments as a{" "}
+          <span className="text-blue-400">{profession}</span>
+        </p>
       </header>
 
       <main className="w-full max-w-3xl bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-2xl">
-        
         {/* Profession Selector */}
         <div className="mb-6">
           <label className="flex items-center gap-2 text-sm font-medium mb-2 text-slate-300">
-            <Briefcase size={16} className="text-blue-400" /> Select Your Profession
+            <Briefcase size={16} className="text-blue-400" /> Select Your
+            Profession
           </label>
-          <select 
+          <select
             value={profession}
             onChange={(e) => setProfession(e.target.value)}
             className="w-full bg-slate-800/50 border border-slate-700 p-3 rounded-xl text-white focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer transition-all"
           >
             {professions.map((p) => (
-              <option key={p} value={p} className="bg-slate-900">{p}</option>
+              <option key={p} value={p} className="bg-slate-900">
+                {p}
+              </option>
             ))}
           </select>
         </div>
 
         {/* Input Section */}
         <div className="mb-6">
-          <label className="block text-sm font-medium mb-2 text-slate-300">Paste Video Script</label>
+          <label className="block text-sm font-medium mb-2 text-slate-300">
+            Paste Video Script
+          </label>
           <textarea
             className="w-full h-48 p-4 bg-slate-800/50 border border-slate-700 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all placeholder:text-slate-500 text-white"
             placeholder={`As a ${profession}, what do you think of this script? Paste it here...`}
@@ -97,22 +104,30 @@ const ScriptToComment = () => {
         </div>
 
         {/* Generate Button */}
-        <button
-          onClick={handleGenerate}
-          disabled={loading}
-          className="w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-transform active:scale-95 disabled:opacity-50"
-        >
-          {loading ? <RefreshCw className="animate-spin" /> : <Send size={20} />}
-          {loading ? "AI is Crafting..." : "Generate Magic Comment"}
-        </button>
+        {dbUser?.role === "SuperAdmin" && (
+          <button
+            onClick={handleGenerate}
+            disabled={loading}
+            className="w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-transform active:scale-95 disabled:opacity-50"
+          >
+            {loading ? (
+              <RefreshCw className="animate-spin" />
+            ) : (
+              <Send size={20} />
+            )}
+            {loading ? "AI is Crafting..." : "Generate Magic Comment"}
+          </button>
+        )}
 
         {/* Result Section */}
         {comment && (
           <div className="mt-8 animate__animated animate__fadeInUp">
             <div className="flex justify-between items-center mb-2">
-              <h3 className="text-purple-400 font-semibold italic underline">Perfect Response as a {profession}:</h3>
-              <button 
-                onClick={copyToClipboard} 
+              <h3 className="text-purple-400 font-semibold italic underline">
+                Perfect Response as a {profession}:
+              </h3>
+              <button
+                onClick={copyToClipboard}
                 className="text-slate-400 hover:text-white flex items-center gap-1 text-sm transition-colors bg-white/5 px-3 py-1 rounded-md border border-white/10"
               >
                 <Copy size={16} /> Copy
@@ -126,7 +141,8 @@ const ScriptToComment = () => {
       </main>
 
       <footer className="mt-12 text-slate-500 text-sm italic">
-        Elevating your <span className="text-slate-300 underline">{profession}</span> career 🚀
+        Elevating your{" "}
+        <span className="text-slate-300 underline">{profession}</span> career 🚀
       </footer>
     </div>
   );
