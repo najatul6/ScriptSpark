@@ -13,6 +13,7 @@ import ImageToComment from "@/Pages/ImageToComment/ImageToComment";
 import ClientReply from "@/Pages/ClientReply/ClientReply";
 import ProposalGenerator from "@/Pages/ProposalGenerator/ProposalGenerator";
 import VoiceToScript from "@/Pages/VoiceToScript/VoiceToScript";
+import UserManagement from "@/Pages/Dashboard/UserManagement";
 
 const Router = createBrowserRouter([
   {
@@ -83,7 +84,7 @@ const Router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard",
+    path: "/admin/dashboard",
     element: (
       <PrivateRoute>
         <DashboardLayout />
@@ -95,6 +96,10 @@ const Router = createBrowserRouter([
         path: "overview",
         element: <Overview />,
       },
+      {
+        path:"user-management",
+        element:<UserManagement/>
+      }
     ],
   },
   // {
