@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Sparkles, Link2, FileText, Image as ImageIcon, MessageSquare, Menu, X } from 'lucide-react';
+import { Sparkles, Link2, FileText, Image as ImageIcon, MessageSquare, Menu, X, HomeIcon } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   
   const navItems = [
+    { name: 'Home', path: '/', icon: <HomeIcon size={18} /> },
     { name: 'Link to Script', path: '/link-to-script', icon: <Link2 size={18} /> },
     { name: 'Script to Comment', path: '/script-to-comment', icon: <FileText size={18} /> },
     { name: 'Image to Comment', path: '/image-to-comment', icon: <ImageIcon size={18} /> },
