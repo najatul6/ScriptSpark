@@ -14,6 +14,7 @@ import ClientReply from "@/Pages/ClientReply/ClientReply";
 import ProposalGenerator from "@/Pages/ProposalGenerator/ProposalGenerator";
 import VoiceToScript from "@/Pages/VoiceToScript/VoiceToScript";
 import UserManagement from "@/Pages/Dashboard/UserManagement";
+import SuperAdminRoute from "./SuperAdminRoute";
 
 const Router = createBrowserRouter([
   {
@@ -78,9 +79,9 @@ const Router = createBrowserRouter([
   {
     path: "/admin/dashboard",
     element: (
-      <PrivateRoute>
+      <SuperAdminRoute>
         <DashboardLayout />
-      </PrivateRoute>
+      </SuperAdminRoute>
     ),
     errorElement: <ErrorPage />,
     children: [
