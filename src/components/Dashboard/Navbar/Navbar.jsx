@@ -9,6 +9,7 @@ import useAuth from "@/hooks/useAuth";
 import useUser from "@/hooks/useUser";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 export default function Navbar() {
   const { user, logOut } = useAuth();
@@ -78,7 +79,7 @@ export default function Navbar() {
               {isSuperAdmin && (
                 <div className="px-2 mb-2">
                    <p className="px-3 py-2 text-[10px] font-black text-blue-500 uppercase tracking-widest">Administrator</p>
-                   <Link to="/admin/dashboard" className="flex items-center gap-3 px-3 py-2 text-sm text-slate-300 hover:bg-white/5 hover:text-white rounded-lg transition-colors">
+                   <Link to="/admin/dashboard/overview" className="flex items-center gap-3 px-3 py-2 text-sm text-slate-300 hover:bg-white/5 hover:text-white rounded-lg transition-colors">
                      <ShieldCheck size={16} className="text-blue-500" /> Admin Panel
                    </Link>
                 </div>

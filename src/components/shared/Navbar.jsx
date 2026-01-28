@@ -82,7 +82,7 @@ const Navbar = () => {
                     {/* Conditional SuperAdmin Menu */}
                     {isSuperAdmin ? (
                       <div className="bg-blue-500/5 mx-2 rounded-xl mb-2 py-1">
-                        <Link to="/admin/dashboard" className="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:text-white transition-colors">
+                        <Link to="/admin/dashboard/overview" className="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:text-white transition-colors">
                           <ShieldCheck size={16} className="text-blue-400" /> Dashboard
                         </Link>
                         <Link to="/admin/analytics" className="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:text-white transition-colors">
