@@ -11,6 +11,8 @@ import LinkToScript from "@/Pages/LinkToScript/LinkToScript";
 import ScriptToComment from "@/Pages/ScriptComment/ScriptToComment";
 import ImageToComment from "@/Pages/ImageToComment/ImageToComment";
 import ClientReply from "@/Pages/ClientReply/ClientReply";
+import ProposalGenerator from "@/Pages/ProposalGenerator/ProposalGenerator";
+import VoiceToScript from "@/Pages/VoiceToScript/VoiceToScript";
 
 const Router = createBrowserRouter([
   {
@@ -37,6 +39,14 @@ const Router = createBrowserRouter([
       {
         path: "client-reply",
         element: <ClientReply />,
+      },
+      {
+        path: "voice-to-script",
+        element: <VoiceToScript />,
+      },
+      {
+        path: "proposal-generator",
+        element: <ProposalGenerator />,
       },
       {
         path: "signin",
