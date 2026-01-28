@@ -5,13 +5,16 @@ import {
   MessageSquare, Menu, X, HomeIcon, Mic, 
   UserCircle, Settings, ShieldCheck, LogOut, ChevronDown 
 } from 'lucide-react';
+import useUser from '@/hooks/useUser';
+import useAuth from '@/hooks/useAuth';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const location = useLocation();
-
-  const [isSuperAdmin, setIsSuperAdmin] = useState(true); 
+  const { user, logOut } = useAuth(); // logOut ফাংশনটি এখান থেকে আসবে
+  const [dbUser] = useUser();
+  const isSuperAdmin = dbUser?.role === "SuperAdmin";
 
   const navItems = [
     { name: 'Home', path: '/', icon: <HomeIcon size={18} /> },
@@ -51,44 +54,61 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* User Profile & SuperAdmin Dropdown */}
+          {/* User Profile Section */}
           <div className="flex items-center gap-4">
-            <div className="relative">
-              <button 
-                onClick={() => setIsProfileOpen(!isProfileOpen)}
-                className="flex items-center gap-2 p-1.5 rounded-full bg-slate-800 border border-white/10 hover:border-blue-500/50 transition-all text-slate-300 hover:text-white"
-              >
-                <UserCircle size={24} />
-                <ChevronDown size={14} className={`transition-transform ${isProfileOpen ? 'rotate-180' : ''}`} />
-              </button>
-
-              {/* Dropdown Menu */}
-              {isProfileOpen && (
-                <div className="absolute right-0 mt-2 w-56 bg-slate-900 border border-white/10 rounded-xl shadow-2xl py-2 animate__animated animate__fadeIn animate__faster">
-                  <div className="px-4 py-2 border-b border-white/5 mb-2">
-                    <p className="text-xs text-slate-500">Signed in as</p>
-                    <p className="text-sm font-bold text-white truncate">User@ScriptSpark.ai</p>
-                  </div>
-
-                  {/* SuperAdmin Only Items */}
-                  {isSuperAdmin && (
-                    <div className="bg-blue-500/5 mx-2 rounded-lg mb-2">
-                      <p className="px-3 pt-2 text-[10px] font-black text-blue-400 uppercase tracking-widest">Admin Panel</p>
-                      <Link to="/admin/dashboard" className="flex items-center gap-3 px-3 py-2 text-sm text-slate-300 hover:text-white transition-colors">
-                        <ShieldCheck size={16} className="text-blue-400" /> User Management
-                      </Link>
-                      <Link to="/admin/analytics" className="flex items-center gap-3 px-3 py-2 text-sm text-slate-300 hover:text-white transition-colors pb-3">
-                        <Settings size={16} className="text-blue-400" /> AI Usage Logs
-                      </Link>
-                    </div>
+            {user ? (
+              <div className="relative">
+                <button 
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  className="flex items-center gap-2 p-1 rounded-full bg-slate-800 border border-white/10 hover:border-blue-500/50 transition-all shadow-lg"
+                >
+                  {user?.photoURL ? (
+                    <img src={user.photoURL} alt="User" className="w-8 h-8 rounded-full object-cover border border-blue-500/30" />
+                  ) : (
+                    <UserCircle size={28} className="text-slate-400" />
                   )}
+                  <ChevronDown size={14} className={`text-slate-500 mr-1 transition-transform ${isProfileOpen ? 'rotate-180' : ''}`} />
+                </button>
 
-                  <button className="w-full flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:bg-red-500/10 hover:text-red-400 transition-colors">
-                    <LogOut size={16} /> Logout
-                  </button>
-                </div>
-              )}
-            </div>
+                {/* Profile Dropdown */}
+                {isProfileOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-slate-900 border border-white/10 rounded-2xl shadow-2xl py-2 animate__animated animate__fadeIn animate__faster z-[60]">
+                    <div className="px-4 py-3 border-b border-white/5 mb-1">
+                      <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-1">Signed in as</p>
+                      <p className="text-sm font-semibold text-white truncate">{user?.displayName || "Freelancer"}</p>
+                      <p className="text-[10px] text-slate-500 truncate">{user?.email}</p>
+                    </div>
+
+                    {/* Conditional SuperAdmin Menu */}
+                    {isSuperAdmin ? (
+                      <div className="bg-blue-500/5 mx-2 rounded-xl mb-2 py-1">
+                        <Link to="/admin/dashboard" className="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:text-white transition-colors">
+                          <ShieldCheck size={16} className="text-blue-400" /> Dashboard
+                        </Link>
+                        <Link to="/admin/analytics" className="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:text-white transition-colors">
+                          <Settings size={16} className="text-blue-400" /> AI Usage
+                        </Link>
+                      </div>
+                    ) : (
+                      <div className="px-4 py-2 mb-1">
+                         <span className="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full uppercase">Standard Member</span>
+                      </div>
+                    )}
+
+                    <button 
+                      onClick={logOut}
+                      className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-300 hover:bg-red-500/10 hover:text-red-400 transition-all font-medium"
+                    >
+                      <LogOut size={16} /> Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link to="/signin" className="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-full text-sm font-bold transition-all shadow-lg shadow-blue-900/20">
+                Login
+              </Link>
+            )}
 
             {/* Mobile Menu Button */}
             <div className="xl:hidden flex items-center">
@@ -113,7 +133,7 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-all ${
                 location.pathname === item.path 
-                ? 'bg-blue-600 text-white' 
+                ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40' 
                 : 'text-slate-400 hover:bg-white/5 hover:text-white'
               }`}
             >
