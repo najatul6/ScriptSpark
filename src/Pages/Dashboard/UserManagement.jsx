@@ -4,6 +4,7 @@ import useSecureAxios from "@/hooks/useSecureAxios";
 import { cn } from "@/lib/utils";
 import Loading from '../Common/Loading';
 import useUsers from '@/hooks/useUsers';
+import { toast } from 'react-toastify';
 
 const UserManagement = () => {
   const [allUsers, refetch, isLoading] = useUsers();
@@ -24,7 +25,7 @@ const UserManagement = () => {
       if (res.data.modifiedCount > 0 || res.data.upsertedCount > 0) {
         refetch();
         setSelectedUser(null);
-        alert("Access updated successfully!");
+        toast.success("Access updated successfully!");
       }
     } catch (error) {
       console.error("Update failed", error);

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ImageIcon, Upload, RefreshCw, Briefcase, Copy } from 'lucide-react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { toast } from 'react-toastify';
 
 const ImageToComment = () => {
   const [image, setImage] = useState(null);
@@ -53,14 +54,14 @@ const ImageToComment = () => {
       setImage(URL.createObjectURL(file));
     } catch (error) {
       console.error("Analysis Error:", error);
-      alert("Image analysis failed. Please try again.");
+      toast.error("Image analysis failed. Please try again.");
       setLoading(false);
     }
   };
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(comment);
-    alert("Copied! 🚀");
+    toast.success("Copied! 🚀");
   };
 
   return (

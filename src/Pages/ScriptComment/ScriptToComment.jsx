@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Send, Sparkles, Copy, RefreshCw, Briefcase } from 'lucide-react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { toast } from 'react-toastify';
 
 const ScriptToComment = () => {
   const [script, setScript] = useState('');
@@ -20,7 +21,7 @@ const ScriptToComment = () => {
   const genAI = new GoogleGenerativeAI(apiKey);
 
   const handleGenerate = async () => {
-    if (!script) return alert("Please paste a script first!");
+    if (!script) return toast.error("Please paste a script first!");
     
     setLoading(true);
     try {
@@ -43,7 +44,7 @@ const ScriptToComment = () => {
       setComment(response.text());
     } catch (error) {
       console.error("AI Error:", error);
-      alert("Something went wrong. Please check your API Key!");
+      toast.error("Something went wrong. Please check your API Key!");
     } finally {
       setLoading(false);
     }
@@ -52,7 +53,7 @@ const ScriptToComment = () => {
   const copyToClipboard = () => {
     if (!comment) return;
     navigator.clipboard.writeText(comment);
-    alert("Copied to clipboard! 🚀");
+    toast.success("Copied to clipboard! 🚀");
   };
 
   return (

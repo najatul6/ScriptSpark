@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mic, Upload, RefreshCw, FileText } from 'lucide-react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { toast } from 'react-toastify';
 
 const VoiceToScript = () => {
   const [transcript, setTranscript] = useState('');
@@ -31,7 +32,7 @@ const VoiceToScript = () => {
       };
       reader.readAsDataURL(file);
     } catch (error) {
-      alert("Transcription failed.");
+      toast.error("Transcription failed.");
       setLoading(false);
     }
   };

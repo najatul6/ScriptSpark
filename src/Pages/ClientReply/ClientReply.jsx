@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MessageSquare, Send, Copy, RefreshCw, Briefcase } from 'lucide-react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { toast } from 'react-toastify';
 
 const ClientReply = () => {
   const [clientMsg, setClientMsg] = useState('');
@@ -16,10 +17,11 @@ const ClientReply = () => {
     'Digital Marketer'
   ];
 
+
   const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
   const handleReply = async () => {
-    if (!clientMsg) return alert("Please paste the client's message first!");
+    if (!clientMsg) return toast.error("Please paste the client's message first!");
     
     setLoading(true);
     try {
@@ -42,7 +44,7 @@ const ClientReply = () => {
       setReply(result.response.text());
     } catch (error) {
       console.error("Reply Error:", error);
-      alert("Failed to generate a reply. Check your connection.");
+      toast.error("Failed to generate a reply. Check your connection.");
     } finally {
       setLoading(false);
     }
@@ -50,7 +52,7 @@ const ClientReply = () => {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(reply);
-    alert("Reply copied to clipboard! 📋");
+    toast.success("Reply copied to clipboard! 📋");
   };
 
   return (

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Send, Sparkles, Copy, RefreshCw, Link as LinkIcon, FileText, Briefcase } from 'lucide-react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { toast } from 'react-toastify';
 
 const LinkToScript = () => {
   const [videoLink, setVideoLink] = useState(''); 
@@ -22,10 +23,10 @@ const LinkToScript = () => {
   const genAI = new GoogleGenerativeAI(apiKey);
 
   const handleExtractScript = async () => {
-    if (!videoLink) return alert("Please paste a video link first!");
+    if (!videoLink) return toast.error("Please paste a video link first!");
     
     setIsExtracting(true);
-    setScript(''); // নতুন করে এক্সট্রাক্ট করার সময় আগেরটা মুছে যাবে
+    setScript('');
     try {
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
       
@@ -41,14 +42,14 @@ const LinkToScript = () => {
       setScript(response.text()); 
     } catch (error) {
       console.error("Link Error:", error);
-      alert("AI could not access this link directly. Try pasting the script manually.");
+      toast.error("AI could not access this link directly. Try pasting the script manually.");
     } finally {
       setIsExtracting(false);
     }
   };
 
   const handleGenerateComment = async () => {
-    if (!script) return alert("Script is empty!");
+    if (!script) return toast.error("Script is empty!");
     setLoading(true);
     try {
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -68,7 +69,7 @@ const LinkToScript = () => {
       const result = await model.generateContent(prompt);
       setComment(result.response.text());
     } catch (error) {
-      alert("Comment generation failed!");
+      toast.error("Comment generation failed!");
     } finally {
       setLoading(false);
     }
@@ -152,7 +153,7 @@ const LinkToScript = () => {
           <div className="bg-slate-900/90 border border-purple-500/40 p-6 rounded-2xl animate__animated animate__fadeInUp">
              <div className="flex justify-between mb-3 text-purple-400 font-bold uppercase text-xs tracking-widest">
                 <span>AI Expert Response</span>
-                <button onClick={() => {navigator.clipboard.writeText(comment); alert("Copied! 🚀")}} className="hover:text-white transition-colors flex items-center gap-1 text-[10px] bg-white/5 px-2 py-1 rounded">
+                <button onClick={() => {navigator.clipboard.writeText(comment); toast.success("Copied! 🚀")}} className="hover:text-white transition-colors flex items-center gap-1 text-[10px] bg-white/5 px-2 py-1 rounded">
                   <Copy size={14} /> COPY
                 </button>
              </div>

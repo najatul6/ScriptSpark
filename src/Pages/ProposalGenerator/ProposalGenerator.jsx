@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Send, FileText, Copy, RefreshCw, Briefcase, Sparkles } from 'lucide-react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { toast } from 'react-toastify';
 
 const ProposalGenerator = () => {
   const [jobDesc, setJobDesc] = useState('');
@@ -12,7 +13,7 @@ const ProposalGenerator = () => {
   const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
   const handleGenerate = async () => {
-    if (!jobDesc) return alert("Please paste the job description!");
+    if (!jobDesc) return toast.error("Please paste the job description!");
     setLoading(true);
     try {
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -30,7 +31,7 @@ const ProposalGenerator = () => {
       const result = await model.generateContent(prompt);
       setProposal(result.response.text());
     } catch (error) {
-      alert("Error generating proposal.");
+      toast.error("Error generating proposal.");
     } finally {
       setLoading(false);
     }
@@ -73,7 +74,7 @@ const ProposalGenerator = () => {
         {proposal && (
           <div className="mt-8 p-6 bg-slate-900/80 border border-orange-500/30 rounded-2xl relative">
              <button 
-                onClick={() => {navigator.clipboard.writeText(proposal); alert("Copied!")}}
+                onClick={() => {navigator.clipboard.writeText(proposal); toast.success("Copied!")}}
                 className="absolute top-4 right-4 text-slate-400 hover:text-white"
              >
                 <Copy size={18} />
