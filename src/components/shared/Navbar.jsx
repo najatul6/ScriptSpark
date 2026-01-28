@@ -12,7 +12,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const location = useLocation();
-  const { user, logOut } = useAuth(); // logOut ফাংশনটি এখান থেকে আসবে
+  const { user, logOut } = useAuth(); 
   const [dbUser] = useUser();
   const isSuperAdmin = dbUser?.role === "SuperAdmin";
 
