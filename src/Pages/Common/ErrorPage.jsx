@@ -1,5 +1,5 @@
 import img from "@/assets/Animation/NotFound.json"
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/button";
 import Lottie from "lottie-react";
 import { Link, useRouteError } from "react-router-dom";
 
