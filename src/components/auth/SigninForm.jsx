@@ -65,6 +65,7 @@ export default function SigninForm() {
                 })
                 .catch((error) => {
                     console.error("Error Signing In:", error);
+                    navigate(form, { replace: true });
                     setError(error.code);
                     throw error;
                 }),
