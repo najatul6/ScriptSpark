@@ -1,5 +1,5 @@
 import { Sparkles } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import sidebarMenu from "@/lib/sidebarMenu";
 
@@ -16,12 +16,12 @@ export default function Sidebar({ mobile }) {
         <div className="bg-blue-600 p-2 rounded-xl shadow-lg shadow-blue-600/20">
           <Sparkles className="h-5 w-5 text-white fill-white" />
         </div>
-        <div className="flex flex-col">
+        <Link to="/" className="flex flex-col">
           <h2 className="text-lg font-bold text-white leading-none tracking-tight">
             Script<span className="text-blue-500">Spark</span>
           </h2>
           <span className="text-[10px] text-slate-500 font-medium uppercase tracking-tighter">AI Freelance Suite</span>
-        </div>
+        </Link>
       </div>
 
       {/* Navigation Links */}
