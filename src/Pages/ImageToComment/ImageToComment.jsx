@@ -67,10 +67,10 @@ const ImageToComment = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-64px)] p-6 bg-slate-900 flex flex-col items-center">
-      <div className="w-full max-w-3xl bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-3xl shadow-2xl animate__animated animate__fadeIn">
+    <div className="min-h-[calc(100vh-64px)] p-4 bg-slate-900 flex flex-col items-center">
+      <div className="w-full max-w-3xl bg-white/5 backdrop-blur-md border border-white/10 px-4 py-8 rounded-3xl shadow-2xl animate__animated animate__fadeIn">
         <header className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-green-400 mb-2 flex items-center justify-center gap-2">
+          <h2 className="text-xl md:text-3xl font-bold text-green-400 mb-2 flex items-center justify-center gap-2">
             <ImageIcon /> Image to Comment
           </h2>
           <p className="text-slate-400">
