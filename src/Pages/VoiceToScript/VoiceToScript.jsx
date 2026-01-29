@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Mic, Upload, RefreshCw, FileText } from 'lucide-react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { toast } from 'react-toastify';
+import usePermissionCheck from '@/lib/usePermissionCheck';
 
 const VoiceToScript = () => {
   const [transcript, setTranscript] = useState('');
   const [loading, setLoading] = useState(false);
   const [fileName, setFileName] = useState('');
-
+  const { handleClick } = usePermissionCheck("VoiceToScript");
   const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
   const handleAudioUpload = async (e) => {
@@ -44,7 +45,7 @@ const VoiceToScript = () => {
           <Mic /> Voice to Script AI
         </h2>
 
-        <label className="cursor-pointer w-full h-48 border-2 border-dashed border-slate-700 rounded-3xl flex flex-col items-center justify-center hover:bg-white/5 transition-all mb-6">
+        <label onClick={handleClick} className="cursor-pointer w-full h-48 border-2 border-dashed border-slate-700 rounded-3xl flex flex-col items-center justify-center hover:bg-white/5 transition-all mb-6">
           <Upload size={48} className="text-slate-500 mb-2" />
           <p className="text-slate-400">{fileName ? fileName : "Upload Audio File (MP3, WAV, etc.)"}</p>
           <input type="file" className="hidden" onChange={handleAudioUpload} accept="audio/*" />
