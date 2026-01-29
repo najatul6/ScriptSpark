@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Send, Sparkles, Copy, RefreshCw, Briefcase } from "lucide-react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { toast } from "react-toastify";
-import useUser from "@/hooks/useUser";
+import usePermissionCheck from "@/lib/usePermissionCheck";
 
 const ScriptToComment = () => {
   const [script, setScript] = useState("");
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
   const [profession, setProfession] = useState("Web Developer");
-  const [dbUser] = useUser();
+  const { handleClick } = usePermissionCheck("ScriptToComment");
   const professions = [
     "Video Editor",
     "Web Developer",
@@ -96,6 +96,7 @@ const ScriptToComment = () => {
             Paste Video Script
           </label>
           <textarea
+            onClick={handleClick}
             className="w-full h-48 p-4 bg-slate-800/50 border border-slate-700 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all placeholder:text-slate-500 text-white"
             placeholder={`As a ${profession}, what do you think of this script? Paste it here...`}
             value={script}
@@ -104,20 +105,18 @@ const ScriptToComment = () => {
         </div>
 
         {/* Generate Button */}
-        {dbUser?.role === "SuperAdmin" && (
-          <button
-            onClick={handleGenerate}
-            disabled={loading}
-            className="w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-transform active:scale-95 disabled:opacity-50"
-          >
-            {loading ? (
-              <RefreshCw className="animate-spin" />
-            ) : (
-              <Send size={20} />
-            )}
-            {loading ? "AI is Crafting..." : "Generate Magic Comment"}
-          </button>
-        )}
+        <button
+          onClick={handleGenerate}
+          disabled={loading}
+          className="w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-transform active:scale-95 disabled:opacity-50"
+        >
+          {loading ? (
+            <RefreshCw className="animate-spin" />
+          ) : (
+            <Send size={20} />
+          )}
+          {loading ? "AI is Crafting..." : "Generate Magic Comment"}
+        </button>
 
         {/* Result Section */}
         {comment && (
@@ -139,11 +138,6 @@ const ScriptToComment = () => {
           </div>
         )}
       </main>
-
-      <footer className="mt-12 text-slate-500 text-sm italic">
-        Elevating your{" "}
-        <span className="text-slate-300 underline">{profession}</span> career 🚀
-      </footer>
     </div>
   );
 };
