@@ -1,27 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { ImageIcon, Upload, RefreshCw, Briefcase, Copy } from "lucide-react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { toast } from "react-toastify";
-import useUser from "@/hooks/useUser";
-import { useNavigate } from "react-router-dom";
+import usePermissionCheck from "@/lib/usePermissionCheck";
 
 const ImageToComment = () => {
   const [image, setImage] = useState(null);
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
   const [profession, setProfession] = useState("Graphic Designer");
-  const [dbUser] = useUser();
-  const navigate = useNavigate();
-  const isSuperAdmin = dbUser?.role === "SuperAdmin";
-  const hasPermission =
-    isSuperAdmin || dbUser?.permission?.includes("ImageToComment");
-
-  const handleUploadClick = (e) => {
-    if (!hasPermission) {
-      e.preventDefault();
-      navigate("/access-denied");
-    }
-  };
+  const { handleClick, hasPermission } = usePermissionCheck("ImageToComment");
 
   const professions = [
     "Graphic Designer",
@@ -110,7 +98,7 @@ const ImageToComment = () => {
 
         {/* Upload Area */}
         <label
-          onClick={handleUploadClick}
+          onClick={handleClick}
           className="cursor-pointer w-full h-72 border-2 border-dashed border-slate-700 rounded-3xl flex flex-col items-center justify-center hover:bg-white/5 transition-all mb-6 overflow-hidden relative group"
         >
           {image ? (
