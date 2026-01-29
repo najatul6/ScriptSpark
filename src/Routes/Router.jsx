@@ -15,6 +15,7 @@ import ProposalGenerator from "@/Pages/ProposalGenerator/ProposalGenerator";
 import VoiceToScript from "@/Pages/VoiceToScript/VoiceToScript";
 import UserManagement from "@/Pages/Dashboard/UserManagement";
 import SuperAdminRoute from "./SuperAdminRoute";
+import AccessDenied from "@/Pages/AccessDenied/AccessDenied";
 
 const Router = createBrowserRouter([
   {
@@ -103,6 +104,10 @@ const Router = createBrowserRouter([
     path: "signUp",
     element: <Signup />,
   },
+  {
+    path:"/access-denied",
+    element:<AccessDenied/>
+  }
   // {
   //     path:"/register",
   //     element:<Register/>
