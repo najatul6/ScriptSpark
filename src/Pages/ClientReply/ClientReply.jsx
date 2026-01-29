@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { MessageSquare, Send, Copy, RefreshCw, Briefcase } from "lucide-react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { toast } from "react-toastify";
-import useUser from "@/hooks/useUser";
+import usePermissionCheck from "@/lib/usePermissionCheck";
 
 const ClientReply = () => {
   const [clientMsg, setClientMsg] = useState("");
   const [reply, setReply] = useState("");
   const [loading, setLoading] = useState(false);
   const [profession, setProfession] = useState("Web Developer");
-  const [dbUser] = useUser();
+  const { handleClick } = usePermissionCheck("ClientReply");
   const professions = [
     "Video Editor",
     "Web Developer",
@@ -92,6 +92,7 @@ const ClientReply = () => {
             The Client Said:
           </label>
           <textarea
+            onClick={handleClick}
             className="w-full h-40 bg-slate-800/50 border border-slate-700 p-4 rounded-2xl text-white focus:ring-2 focus:ring-purple-500 outline-none transition-all placeholder:text-slate-600"
             placeholder="Example: 'Your price is too high' or 'Can you finish this in 2 hours?'"
             value={clientMsg}
@@ -100,7 +101,7 @@ const ClientReply = () => {
         </div>
 
         {/* Action Button */}
-        {dbUser?.role === "SuperAdmin" && (
+        
           <button
             onClick={handleReply}
             disabled={loading}
@@ -113,7 +114,7 @@ const ClientReply = () => {
             )}
             {loading ? "Thinking of a reply..." : "Generate Perfect Reply"}
           </button>
-        )}
+        
 
         {/* AI Result Area */}
         {reply && (
@@ -136,9 +137,6 @@ const ClientReply = () => {
         )}
       </div>
 
-      <footer className="mt-8 text-slate-600 text-xs text-center">
-        ScriptSpark AI — Never lose a client to a bad reply.
-      </footer>
     </div>
   );
 };
