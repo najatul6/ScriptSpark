@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { toast } from "react-toastify";
-import useUser from "@/hooks/useUser";
+import usePermissionCheck from "@/lib/usePermissionCheck";
 
 const LinkToScript = () => {
   const [videoLink, setVideoLink] = useState("");
@@ -19,7 +19,7 @@ const LinkToScript = () => {
   const [loading, setLoading] = useState(false);
   const [isExtracting, setIsExtracting] = useState(false);
   const [profession, setProfession] = useState("Video Editor");
-  const [dbUser] = useUser();
+  const { handleClick } = usePermissionCheck("LinkToScript");
   const professions = [
     "Video Editor",
     "Web Developer",
@@ -124,7 +124,7 @@ const LinkToScript = () => {
             <LinkIcon size={18} className="text-blue-400" /> Video URL
             (YouTube/Other)
           </label>
-          <div className="flex flex-col sm:flex-row gap-2">
+          <div onClick={handleClick} className="flex flex-col sm:flex-row gap-2">
             <input
               type="text"
               className="flex-1 bg-slate-800/50 border border-slate-700 p-3 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
@@ -132,7 +132,7 @@ const LinkToScript = () => {
               value={videoLink}
               onChange={(e) => setVideoLink(e.target.value)}
             />
-            {dbUser?.role === "SuperAdmin" && (
+            
               <button
                 onClick={handleExtractScript}
                 disabled={isExtracting}
@@ -144,7 +144,7 @@ const LinkToScript = () => {
                   "Get Script"
                 )}
               </button>
-            )}
+            
           </div>
         </div>
 
@@ -155,13 +155,13 @@ const LinkToScript = () => {
             Summary
           </label>
           <textarea
+          onClick={handleClick}
             className="w-full h-48 bg-slate-800/50 border border-slate-700 p-4 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all resize-none text-slate-200"
             placeholder="Script will appear here after clicking 'Get Script'..."
             value={script}
             onChange={(e) => setScript(e.target.value)}
           />
 
-          {dbUser?.role === "SuperAdmin" && (
             <button
               onClick={handleGenerateComment}
               disabled={loading || !script}
@@ -174,7 +174,7 @@ const LinkToScript = () => {
               )}
               Generate Magic Comment as {profession}
             </button>
-          )}
+          
         </div>
 
         {/* Comment Result */}
@@ -197,9 +197,6 @@ const LinkToScript = () => {
         )}
       </main>
 
-      <footer className="mt-8 text-slate-500 text-[12px]">
-        © 2024 ScriptSpark AI | Effortless Freelancing
-      </footer>
     </div>
   );
 };
