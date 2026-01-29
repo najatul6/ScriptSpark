@@ -58,19 +58,16 @@ const ScriptToComment = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white p-6 flex flex-col items-center">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white p-4 flex flex-col items-center">
       {/* Header */}
       <header className="mb-10 text-center animate__animated animate__fadeInDown">
-        <h1 className="text-5xl font-extrabold flex items-center justify-center gap-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-          <Sparkles className="text-blue-400 w-10 h-10" /> ScriptSpark
-        </h1>
         <p className="text-slate-400 mt-2 text-lg">
           Generate expert comments as a{" "}
           <span className="text-blue-400">{profession}</span>
         </p>
       </header>
 
-      <main className="w-full max-w-3xl bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-2xl">
+      <main className="w-full max-w-4xl bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-4 shadow-2xl">
         {/* Profession Selector */}
         <div className="mb-6">
           <label className="flex items-center gap-2 text-sm font-medium mb-2 text-slate-300">
@@ -108,7 +105,7 @@ const ScriptToComment = () => {
         <button
           onClick={handleGenerate}
           disabled={loading}
-          className="w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-transform active:scale-95 disabled:opacity-50"
+          className="w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-xl font-bold text-sm md:text-lg flex items-center justify-center gap-1 md:gap-2 transition-transform active:scale-95 disabled:opacity-50"
         >
           {loading ? (
             <RefreshCw className="animate-spin" />
