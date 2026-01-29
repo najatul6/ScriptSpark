@@ -81,7 +81,7 @@ const UserManagement = () => {
                 <td className="px-8 py-5">
                   <span className={cn(
                     "px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-tighter border",
-                    u.role === "superAdmin" ? "bg-blue-600/10 text-blue-400 border-blue-500/20" : "bg-slate-800 text-slate-400 border-white/5"
+                    u.role === "SuperAdmin" ? "bg-blue-600/10 text-blue-400 border-blue-500/20" : "bg-slate-800 text-slate-400 border-white/5"
                   )}>
                     {u.role || "user"}
                   </span>
@@ -142,7 +142,7 @@ const UserManagement = () => {
               <div className="space-y-3">
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-1">Page Access</label>
                 <div className="grid grid-cols-2 gap-2">
-                  {['Dashboard', 'LinkToScript', 'ReplyGen', 'Analytics', 'Users'].map(mod => {
+                  {['ScriptToComment', 'LinkToScript', 'ImageToComment', 'ClientReply', 'VoiceToScript','ProposalGenerator'].map(mod => {
                     const isChecked = selectedUser.permissions?.includes(mod);
                     return (
                       <button
