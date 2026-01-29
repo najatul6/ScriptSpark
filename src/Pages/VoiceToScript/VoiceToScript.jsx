@@ -39,9 +39,9 @@ const VoiceToScript = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-64px)] p-6 bg-slate-900 flex flex-col items-center">
+    <div className="min-h-[calc(100vh-64px)] p-4 bg-slate-900 flex flex-col items-center">
       <div className="w-full max-w-3xl bg-white/5 border border-white/10 p-8 rounded-3xl text-center">
-        <h2 className="text-3xl font-bold text-red-400 mb-6 flex items-center justify-center gap-2">
+        <h2 className="text-xl md:text-3xl font-bold text-red-400 mb-6 flex items-center justify-center gap-2">
           <Mic /> Voice to Script AI
         </h2>
 
