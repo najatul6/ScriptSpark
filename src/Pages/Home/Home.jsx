@@ -24,7 +24,7 @@ const Home = () => {
       
       {/* Hero Section */}
       <section className="text-center mb-16 max-w-4xl animate__animated animate__fadeInUp">
-        <h1 className="text-6xl font-extrabold leading-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
           Supercharge Your Freelance Game with ScriptSpark AI
         </h1>
         <p className="text-xl text-slate-300 mb-8">

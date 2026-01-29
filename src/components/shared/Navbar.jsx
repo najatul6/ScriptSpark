@@ -34,7 +34,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 font-bold text-xl text-blue-400 shrink-0">
             <Sparkles className="fill-blue-400 w-6 h-6" /> 
-            <span className="hidden sm:inline">ScriptSpark</span>
+            <span className=" sm:inline">ScriptSpark</span>
           </Link>
 
           {/* Desktop Menu */}
