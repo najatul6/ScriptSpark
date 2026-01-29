@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import {
   Send,
-  FileText,
   Copy,
   RefreshCw,
-  Briefcase,
   Sparkles,
 } from "lucide-react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
