@@ -1,8 +1,22 @@
-import React from 'react';
-import { Github, Linkedin,  Terminal, Cpu, Globe, ArrowRight, Heart, Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { Github, Linkedin,  Terminal, Cpu, Globe, ArrowRight, Sparkles } from 'lucide-react';
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
   const currentYear = new Date().getFullYear();
+
+  const handleWhatsAppSend = () => {
+    if (!email) return alert("Please enter an email first!");
+    
+    const phoneNumber = "8801581205392";
+    const message = `Hello! I would like to join the Spark newsletter. My email is: ${email}`;
+    
+    // Construct the WhatsApp URL
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    
+    // Redirect to WhatsApp
+    window.open(whatsappUrl, "_blank");
+  };
 
   return (
     <footer className="relative bg-[#020617] text-slate-300 pt-20 pb-10 overflow-hidden">
@@ -64,10 +78,12 @@ const Footer = () => {
             <div className="relative group">
               <input 
                 type="email" 
-                placeholder="developer@email.com" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="mdnajatulislam.develop@email.com" 
                 className="w-full bg-slate-950 border border-white/10 rounded-2xl py-3 px-4 text-xs focus:outline-none focus:border-blue-500 transition-all pr-12"
               />
-              <button className="absolute right-2 top-1.5 p-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl transition-all">
+              <button onClick={handleWhatsAppSend} className="absolute right-2 top-1.5 p-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl transition-all">
                 <ArrowRight size={16} />
               </button>
             </div>
