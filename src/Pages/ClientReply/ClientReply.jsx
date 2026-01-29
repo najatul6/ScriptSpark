@@ -57,10 +57,10 @@ const ClientReply = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-64px)] p-6 bg-slate-900 flex flex-col items-center font-sans">
-      <div className="w-full max-w-3xl bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-3xl shadow-xl animate__animated animate__fadeIn">
+    <div className="min-h-[calc(100vh-64px)] p-4 bg-slate-900 flex flex-col items-center font-sans">
+      <div className="w-full max-w-3xl bg-white/5 backdrop-blur-md border border-white/10 px-4 py-8 rounded-3xl shadow-xl animate__animated animate__fadeIn">
         <header className="mb-8">
-          <h2 className="text-3xl font-bold text-purple-400 flex items-center gap-2">
+          <h2 className="text-xl md:text-3xl font-bold text-purple-400 flex items-center gap-2">
             <MessageSquare /> Client Reply Master
           </h2>
           <p className="text-slate-400 mt-1">
