@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Linkedin, Zap, Terminal, Cpu, Globe, ArrowRight, Heart } from 'lucide-react';
+import { Github, Linkedin,  Terminal, Cpu, Globe, ArrowRight, Heart, Sparkles } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -16,8 +16,8 @@ const Footer = () => {
           {/* Brand & Mission */}
           <div className="md:col-span-4 space-y-6">
             <div className="flex items-center gap-2 group cursor-pointer">
-              <div className="p-2 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-lg shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">
-                <Zap className="text-white fill-white" size={24} />
+              <div className="group-hover:scale-110 transition-transform">
+                <Sparkles size={40} className="text-blue-400" />
               </div>
               <h2 className="text-2xl font-black text-white tracking-tight">
                 Script<span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">Spark</span>

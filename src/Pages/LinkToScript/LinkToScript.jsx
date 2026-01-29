@@ -89,9 +89,9 @@ const LinkToScript = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white p-6 flex flex-col items-center font-sans">
       <header className="mb-8 text-center animate__animated animate__fadeInDown">
-        <h1 className="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400 flex items-center gap-3">
-          <Sparkles size={40} className="text-blue-400" /> ScriptSpark
-        </h1>
+        {/* <h1 className="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400 flex items-center gap-3">
+           ScriptSpark
+        </h1> */}
         <p className="text-slate-400 mt-2">
           Extract Scripts & Generate Expert Comments as a{" "}
           <span className="text-blue-400 font-bold">{profession}</span>
